@@ -63,22 +63,29 @@ class EventSourcer {
       for(let i = this.counter-1; i >= 0; i--) {
         this.value = this.value - this.values[this.counter];
       }
-      this.counter = 0;
+      this.counter = -1;
     }
 
     return this.value;
   }
   bulk_redo(num) {
     //If all redos can be served
+    console.log(this.counter);
+    console.log(this.value);
+    console.log(this.values.length);
     if(this.counter + num <= this.values.length) {
       for(let i = 0; i < num; i++) {
         this.counter = this.counter + 1;
-        this.value = this.value + this.values[this.counter];        
+        this.value = this.value + this.values[this.counter];     
+        console.log(",");
+        console.log(this.value);
       }
     } else {
-      for(let i = this.counter; i < this.values.length; i++) {
+      for(let i = this.counter; i < this.values.length-1; i++) {
         this.counter = this.counter + 1;
         this.value = this.value + this.values[this.counter];
+        console.log(".");
+        console.log(this.value);
       }
     }
 
@@ -86,11 +93,14 @@ class EventSourcer {
   }
 }
 let sourcer = new EventSourcer();
-sourcer.add(1);
-  sourcer.add(2);
-  sourcer.add(3);
-  sourcer.add(4);
-  sourcer.add(5);
-  sourcer.bulk_undo(3);
+sourcer.add(5);
+sourcer.add(5);
+sourcer.add(5);
+sourcer.add(5);
+sourcer.add(5);
+sourcer.undo();
+sourcer.undo();
+sourcer.undo();
+sourcer.bulk_redo(5);
 // ----- Do not modify anything below this line (needed for test suite) ------
 module.exports = EventSourcer;
