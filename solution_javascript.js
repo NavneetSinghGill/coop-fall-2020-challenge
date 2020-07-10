@@ -72,12 +72,12 @@ class EventSourcer {
     //If all redos can be served
     if(this.counter + num <= this.values.length) {
       for(let i = 0; i < num; i++) {
-        this.counter = this.counter++;
+        this.counter = this.counter + 1;
         this.value = this.value + this.values[this.counter];        
       }
     } else {
       for(let i = this.counter; i < this.values.length; i++) {
-        this.counter = this.counter++;
+        this.counter = this.counter + 1;
         this.value = this.value + this.values[this.counter];
       }
     }
